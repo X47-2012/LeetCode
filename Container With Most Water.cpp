@@ -7,3 +7,7 @@ int maxArea(vector<int> &height)
 {
 
 }
+
+int main() {
+
+}
