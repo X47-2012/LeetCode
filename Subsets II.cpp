@@ -2,28 +2,18 @@ void subsetsHelper(int index, const vector<int> &nums, vector<int> &path, vector
     if (index == nums.size()) {
         return;
     }
-    // fisrt method
-    for (int i = 0; i <= 1; i++) {
-        if (i == 0) {
-            subsetsHelper(index + 1, nums, path, ans);
-        } else {
-            path.push_back(nums[index]);
-            ans.push_back(path);
-            subsetsHelper(index + 1, nums, path, ans);
-            path.pop_back();
-        }
-    }
-    // second method
-    /*
     for (int i = index; i < nums.size(); i++) {
+        if (index != i && nums[i] == nums[i - 1]) {
+            continue;
+        }
         path.push_back(nums[i]);
         ans.push_back(path);
         subsetsHelper(i + 1, nums, path, ans);
         path.pop_back();
-    } */
+    }
 }
 
-vector<vector<int>> subsets(vector<int>& nums) {
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
     vector<vector<int> > ans;
     ans.push_back(vector<int>());
     vector<int> path;
