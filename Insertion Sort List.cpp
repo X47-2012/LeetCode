@@ -9,28 +9,40 @@
 class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
-        if (head || head->next) {
-            return head;
-        }
-        ListNode *p = head, *q = NULL;
-        while (p && p->next) {
-            ListNode *pSlow = NULL, *pFast = head;
-            while (pFast->val < p->val) {
-                pSlow = pFast;
-                pFast = pFast->next;
-            }
-            if (pFast->val != p->val) {
-                q->next = p->next;
-                p->next = pFast;
-                if (pSlow) {
-                    pSlow->next = p;
-                } else {
-                    head = p;
-                }
-            }
-            q = p;
-            p = p->next;
-        }
+        if (head ==NULL || head->next == NULL){
         return head;
     }
+    ListNode *current;
+    ListNode *prev;
+    ListNode dummy(0);
+    dummy.next = head;
+    prev = head;
+    current = head->next;
+    while(current){
+        if (current->val >= prev->val){
+            prev = current;
+            current = current->next;
+            continue;
+        }
+
+        ListNode *temp = current;
+
+        prev->next  = current->next;
+        current = current->next;
+
+
+        ListNode *innerCurr = dummy.next;
+        ListNode *innerPrev = &dummy;
+
+
+        while(temp->val >= innerCurr->val){
+            innerPrev = innerCurr;
+            innerCurr = innerCurr->next;
+        }
+
+        temp->next = innerCurr;
+        innerPrev->next = temp;
+    }
+    return dummy.next;  
+}
 };
