@@ -51,3 +51,32 @@ int main() {
     cout << longestValidParentheses(s);
     cin.get();
 } 
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int> stk;
+        vector<int> dp(s.size(), 0);
+        int result = 0;
+        
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                stk.push(i);
+            } else {
+                if (stk.empty()) {
+                    continue;
+                }
+                int start = stk.top();
+                stk.pop();
+                dp[i] = i - start + 1;
+                if (start > 1) {
+                    dp[i] += dp[start - 1];
+                }
+                if (dp[i] > result) {
+                    result = dp[i];
+                }
+            }
+        }
+        return result;
+    }
+};

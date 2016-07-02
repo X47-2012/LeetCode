@@ -3,8 +3,7 @@
 #include <string>
 using namespace std;
 
-bool isMatch(string s, string p)
-{
+bool isMatch(string s, string p) {
     int cnt;
     for (int i = 0; i < p.size(); i++)
         if (p[i] != '*')
@@ -18,37 +17,29 @@ bool isMatch(string s, string p)
         dp[i][0] = false;
 
     bool flag = true;
-    for (int j = 1; j <= p.size(); j++)
-    {
+    for (int j = 1; j <= p.size(); j++) {
         if ((p[j - 1] == '*') && (flag == true))
             dp[0][j] = true;
-        else
-        {
+        else {
             dp[0][j] = false;
             flag = false;
         }
     }
 
-    for (int i = 1; i <= s.size(); i++)
-    {
-        for (int j = 1; j <= p.size(); j++)
-        {
-            if (p[j - 1] == '?')
-            {
+    for (int i = 1; i <= s.size(); i++) {
+        for (int j = 1; j <= p.size(); j++) {
+            if (p[j - 1] == '?') {
                 dp[i][j] = dp[i - 1][j - 1];
             }
-            else if (p[j - 1] == '*')
-            {
+            else if (p[j - 1] == '*') {
                 bool flag = false;
-                for (int k = 0; k <= i; k++)
-                {
+                for (int k = 0; k <= i; k++) {
                     flag |= dp[k][j - 1];
                     if (flag == true)
                         break;
                 }
                 dp[i][j] = flag;
-                while (true)
-                {
+                while (true) {
                     j++;
                     if (p[j - 1] == '*')
                         dp[i][j] = flag;
@@ -57,13 +48,11 @@ bool isMatch(string s, string p)
                 }
                 j--;
             }
-            else
-            {
+            else {
                 dp[i][j] = dp[i - 1][j - 1] & (s[i - 1] == p[j - 1]);
             }
         }
     }
-
     return dp[s.size()][p.size()];
 }
 

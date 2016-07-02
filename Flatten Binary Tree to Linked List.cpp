@@ -33,3 +33,37 @@ public:
         }
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (root == nullptr) {
+            return;
+        }
+        stack<TreeNode* > stk;
+        stk.push(root);
+        while (!stk.empty()) {
+            TreeNode *node = stk.top();
+            stk.pop();
+            if (node->right) {
+                stk.push(node->right);
+            }
+            if (node->left) {
+                stk.push(node->left);
+            }
+            node->left = nullptr;
+            if (!stk.empty()) {
+                node->right = stk.top();
+            }
+        }
+    }
+};

@@ -9,12 +9,6 @@
  */
 class Solution {
 public:
-    void swap(int &a, int &b) {
-        int tmp = a;
-        a = b;
-        b = tmp;
-    }
-
     void maxLeft(TreeNode* root, TreeNode* &maxNode) {
         if (root == NULL) return;
         if (root->val > maxNode->val) {

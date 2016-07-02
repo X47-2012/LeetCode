@@ -34,3 +34,28 @@ string addBinary(string a, string b) {
         reverse(ans.begin(), ans.end());
         return ans;
     }
+    
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string result;
+        int n = a.size() > b.size() ? a.size() : b.size();
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        
+        int carry = 0;
+        for (int i = 0; i < n; i++) {
+            int ai = (i < a.size()) ? a[i] - '0' : 0;
+            int bi = (i < b.size()) ? b[i] - '0' : 0;
+            int num = ai + bi + carry;
+            carry = num / 2;
+            char val = num % 2 + '0';
+            result.insert(result.begin(), val);
+        }
+        if (carry != 0) {
+            result.insert(result.begin(), '1');
+        }
+        return result;
+    }
+};

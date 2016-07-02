@@ -60,3 +60,40 @@ int main()
 {
     cout<<atoi("+")<<endl;
 }
+
+class Solution {
+public:
+    int myAtoi(string str) {
+        int num = 0;
+        int sign = 1;
+        int n = str.size();
+        int i = 0;
+        
+        while (i < n && str[i] == ' ') { i++; }
+        if (str[i] == '+') {
+            i++;
+        } else if (str[i] == '-') {
+            i++;
+            sign = -1;
+        }
+        
+        for (; i < n; i++) {
+            if (str[i] < '0' || str[i] > '9') { break; }
+            int digit = str[i] - '0';
+            if (sign == 1) {
+                if (num > INT_MAX / 10 || num * 10 > INT_MAX - digit) {
+                    return INT_MAX;
+                } else {
+                    num = num * 10 + digit;
+                }
+            } else {
+                if (num < INT_MIN / 10 || num * 10 < INT_MIN + digit) {
+                    return INT_MIN;
+                } else {
+                    num = num * 10 - digit;
+                }
+            }
+        }
+        return num;
+    }
+};

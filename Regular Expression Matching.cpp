@@ -25,3 +25,32 @@ bool isMatch(string s, string p) {
 int main() {
 	cout << isMatch("aab", "c*a*b");
 }
+
+
+//////////////////////////////////////////
+class Solution {
+public:
+	bool isMatchHelper(const char *s, const char *p) {
+		if (*p == '\0') return *s == '\0';
+		
+		if (*(p + 1) != '*') {
+			if ((*p == '.' && *s != '\0') || *p == *s) {
+				return isMatchHelper(s + 1, p + 1);
+			} else {
+				return false;
+			}
+		} else {
+			while (*p == *s || (*p == '.' && *s != '\0')) {
+				if (isMatchHelper(s, p + 2)) {
+					return true;
+				}
+				s++;
+			}
+			return isMatchHelper(s, p + 2);
+		}
+	}
+
+    bool isMatch(string s, string p) {
+        return isMatchHelper(s.c_str(), p.c_str());
+    }
+};
