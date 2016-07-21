@@ -34,3 +34,26 @@ vector<vector<int>> subsets(vector<int>& nums) {
     subsetsHelper(0, nums, path, ans);
     return ans;
 }
+
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int> > res;
+        vector<int> path;
+        
+        subsetsHelper(0, nums, path, res);
+        return res;
+    }
+    
+    void subsetsHelper(int index, vector<int> &nums, vector<int> &path, vector<vector<int>> &res) {
+        if (index == nums.size()) {
+            res.push_back(path);
+            return;
+        }
+        
+        subsetsHelper(index + 1, nums, path, res);
+        path.push_back(nums[index]);
+        subsetsHelper(index + 1, nums, path, res);
+        path.pop_back();
+    }
+};
